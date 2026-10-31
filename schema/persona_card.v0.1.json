@@ -1,0 +1,982 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/Hey-L-AI/DossierBench/main/schema/persona_card.v0.1.json",
+  "title": "Persona Card v0.1",
+  "description": "A persona card for DossierBench (v0 card schema). The scorer dispatches on schema_version. contexts.default nesting is mandatory even though v0 populates only one context: v1 adds sibling blocks without a schema break. Do not flatten.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "subject_id",
+    "hard_constraints",
+    "contexts"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "0.1"
+    },
+    "subject_id": {
+      "type": "string"
+    },
+    "valid_from": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Timestamp. Unused in v0 scoring; present as the v2 drift hook, where ground truth becomes a time-indexed sequence of cards."
+    },
+    "hard_constraints": {
+      "type": "object",
+      "description": "Top-level, context-independent, scored separately as a gating track (spec \u00a78.2). Never averaged into fidelity.",
+      "required": [
+        "dietary",
+        "allergies",
+        "accessibility_needs",
+        "alcohol_free_required"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "dietary": {
+          "description": "Dietary rules the person will not break. Gating.",
+          "x-metric": "jaccard",
+          "x-provenance": "synthesized",
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "vegetarian",
+                  "vegan",
+                  "pescatarian",
+                  "halal",
+                  "kosher",
+                  "gluten_free",
+                  "dairy_free",
+                  "low_sodium",
+                  "keto"
+                ]
+              },
+              "uniqueItems": true
+            },
+            {
+              "const": "unknown"
+            }
+          ]
+        },
+        "allergies": {
+          "description": "Allergens that must be avoided. Gating; safety-critical.",
+          "x-metric": "jaccard",
+          "x-provenance": "synthesized",
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "peanuts",
+                  "tree_nuts",
+                  "shellfish",
+                  "fish",
+                  "eggs",
+                  "milk",
+                  "soy",
+                  "wheat",
+                  "sesame"
+                ]
+              },
+              "uniqueItems": true
+            },
+            {
+              "const": "unknown"
+            }
+          ]
+        },
+        "accessibility_needs": {
+          "description": "Access requirements a venue must meet. Gating.",
+          "x-metric": "jaccard",
+          "x-provenance": "synthesized",
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "step_free_access",
+                  "accessible_restroom",
+                  "wide_aisles",
+                  "low_lighting_ok",
+                  "quiet_room_needed",
+                  "service_animal",
+                  "seating_required",
+                  "braille_menu",
+                  "assistive_listening"
+                ]
+              },
+              "uniqueItems": true
+            },
+            {
+              "const": "unknown"
+            }
+          ]
+        },
+        "alcohol_free_required": {
+          "description": "True when the person requires an alcohol-free setting. Gating, exact match.",
+          "x-metric": "exact",
+          "x-provenance": "synthesized",
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "const": "unknown"
+            }
+          ]
+        }
+      }
+    },
+    "contexts": {
+      "type": "object",
+      "required": [
+        "default"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "default": {
+          "type": "object",
+          "required": [
+            "cuisines_liked",
+            "cuisines_avoided",
+            "spice_tolerance",
+            "adventurousness",
+            "price_band_distribution",
+            "deal_seeking",
+            "noise_preference",
+            "formality_ceiling",
+            "design_sensitivity",
+            "party_size_distribution",
+            "solo_dining_comfort",
+            "travel_radius",
+            "visit_time_distribution",
+            "planning_style",
+            "wait_tolerance",
+            "event_types_liked",
+            "event_types_avoided",
+            "participation_vs_spectating",
+            "rating_reliance",
+            "novelty_vs_loyalty"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "cuisines_liked": {
+              "description": "Cuisines the person seeks out. Closed vocabulary.",
+              "x-metric": "jaccard",
+              "x-provenance": "synthesized",
+              "oneOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "enum": [
+                      "american",
+                      "bbq",
+                      "brunch",
+                      "burgers",
+                      "cajun",
+                      "caribbean",
+                      "chinese",
+                      "deli",
+                      "dim_sum",
+                      "ethiopian",
+                      "filipino",
+                      "french",
+                      "german",
+                      "greek",
+                      "indian",
+                      "italian",
+                      "japanese",
+                      "korean",
+                      "latin_american",
+                      "lebanese",
+                      "malaysian",
+                      "mediterranean",
+                      "mexican",
+                      "middle_eastern",
+                      "moroccan",
+                      "peruvian",
+                      "pizza",
+                      "portuguese",
+                      "ramen",
+                      "seafood",
+                      "soul_food",
+                      "spanish",
+                      "steakhouse",
+                      "sushi",
+                      "taiwanese",
+                      "thai",
+                      "turkish",
+                      "vegan_restaurant",
+                      "vietnamese"
+                    ]
+                  },
+                  "uniqueItems": true
+                },
+                {
+                  "const": "unknown"
+                }
+              ]
+            },
+            "cuisines_avoided": {
+              "description": "Cuisines the person declines. Closed vocabulary.",
+              "x-metric": "jaccard",
+              "x-provenance": "synthesized",
+              "oneOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "enum": [
+                      "american",
+                      "bbq",
+                      "brunch",
+                      "burgers",
+                      "cajun",
+                      "caribbean",
+                      "chinese",
+                      "deli",
+                      "dim_sum",
+                      "ethiopian",
+                      "filipino",
+                      "french",
+                      "german",
+                      "greek",
+                      "indian",
+                      "italian",
+                      "japanese",
+                      "korean",
+                      "latin_american",
+                      "lebanese",
+                      "malaysian",
+                      "mediterranean",
+                      "mexican",
+                      "middle_eastern",
+                      "moroccan",
+                      "peruvian",
+                      "pizza",
+                      "portuguese",
+                      "ramen",
+                      "seafood",
+                      "soul_food",
+                      "spanish",
+                      "steakhouse",
+                      "sushi",
+                      "taiwanese",
+                      "thai",
+                      "turkish",
+                      "vegan_restaurant",
+                      "vietnamese"
+                    ]
+                  },
+                  "uniqueItems": true
+                },
+                {
+                  "const": "unknown"
+                }
+              ]
+            },
+            "spice_tolerance": {
+              "description": "Heat preference, 4-level behavioural ordinal.",
+              "x-metric": "ordinal_distance",
+              "x-provenance": "synthesized",
+              "oneOf": [
+                {
+                  "enum": [
+                    "avoids_heat",
+                    "mild_only",
+                    "likes_real_spice",
+                    "seeks_hottest"
+                  ]
+                },
+                {
+                  "const": "unknown"
+                }
+              ],
+              "x-level-anchors": [
+                {
+                  "level": "avoids_heat",
+                  "anchor": "avoids heat entirely"
+                },
+                {
+                  "level": "mild_only",
+                  "anchor": "mild only \u2014 will ask for it toned down"
+                },
+                {
+                  "level": "likes_real_spice",
+                  "anchor": "likes real spice and orders for it"
+                },
+                {
+                  "level": "seeks_hottest",
+                  "anchor": "seeks the hottest thing on the menu"
+                }
+              ]
+            },
+            "adventurousness": {
+              "description": "Willingness to order outside the known. Cluster C1.",
+              "x-metric": "ordinal_distance",
+              "x-provenance": "synthesized",
+              "oneOf": [
+                {
+                  "enum": [
+                    "sticks_to_known",
+                    "familiar_variations",
+                    "orders_unfamiliar",
+                    "seeks_unidentifiable"
+                  ]
+                },
+                {
+                  "const": "unknown"
+                }
+              ],
+              "x-level-anchors": [
+                {
+                  "level": "sticks_to_known",
+                  "anchor": "sticks to dishes they already know"
+                },
+                {
+                  "level": "familiar_variations",
+                  "anchor": "tries variations of the familiar"
+                },
+                {
+                  "level": "orders_unfamiliar",
+                  "anchor": "orders the dish they don't recognize while the table plays safe"
+                },
+                {
+                  "level": "seeks_unidentifiable",
+                  "anchor": "picks the place *because* they can't read the menu"
+                }
+              ]
+            },
+            "price_band_distribution": {
+              "description": "Normalized distribution over concrete per-head price bands (<\u00a315, \u00a315-30, \u00a330-50, \u00a350+). A distribution, not a mode: it preserves bimodal spend (cheap weeknights, occasional blowouts) that a point value would flatten. Cluster C2.",
+              "x-metric": "one_minus_jsd",
+              "x-provenance": "synthesized",
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "<\u00a315": {
+                      "type": "number",
+                      "minimum": 0.0,
+                      "maximum": 1.0
+                    },
+                    "\u00a315-30": {
+                      "type": "number",
+                      "minimum": 0.0,
+                      "maximum": 1.0
+                    },
+                    "\u00a330-50": {
+                      "type": "number",
+                      "minimum": 0.0,
+                      "maximum": 1.0
+                    },
+                    "\u00a350+": {
+                      "type": "number",
+                      "minimum": 0.0,
+                      "maximum": 1.0
+                    }
+                  },
+                  "additionalProperties": false,
+                  "description": "Normalized distribution; masses must sum to 1.0."
+                },
+                {
+                  "const": "unknown"
+                }
+              ]
+            },
+            "deal_seeking": {
+              "description": "Effort spent finding a better price. Cluster C2.",
+              "x-metric": "ordinal_distance",
+              "x-provenance": "synthesized",
+              "oneOf": [
+                {
+                  "enum": [
+                    "ignores_price",
+                    "notices_value",
+                    "looks_for_deals",
+                    "plans_around_specials"
+                  ]
+                },
+                {
+                  "const": "unknown"
+                }
+              ],
+              "x-level-anchors": [
+                {
+                  "level": "ignores_price",
+                  "anchor": "ignores price"
+                },
+                {
+                  "level": "notices_value",
+                  "anchor": "notices value but doesn't act on it"
+                },
+                {
+                  "level": "looks_for_deals",
+                  "anchor": "checks for a discount once they have already chosen the place"
+                },
+                {
+                  "level": "plans_around_specials",
+                  "anchor": "lets the happy-hour window pick the place and the hour"
+                }
+              ]
+            },
+            "noise_preference": {
+              "description": "Tolerated room volume. Cluster C3.",
+              "x-metric": "ordinal_distance",
+              "x-provenance": "synthesized",
+              "oneOf": [
+                {
+                  "enum": [
+                    "needs_quiet",
+                    "prefers_low_hum",
+                    "fine_with_lively",
+                    "wants_loud"
+                  ]
+                },
+                {
+                  "const": "unknown"
+                }
+              ],
+              "x-level-anchors": [
+                {
+                  "level": "needs_quiet",
+                  "anchor": "needs it quiet enough to talk"
+                },
+                {
+                  "level": "prefers_low_hum",
+                  "anchor": "prefers a low hum"
+                },
+                {
+                  "level": "fine_with_lively",
+                  "anchor": "fine with lively"
+                },
+                {
+                  "level": "wants_loud",
+                  "anchor": "wants it loud and busy"
+                }
+              ]
+            },
+            "formality_ceiling": {
+              "description": "Highest formality the person will go to. Cluster C2.",
+              "x-metric": "ordinal_distance",
+              "x-provenance": "synthesized",
+              "oneOf": [
+                {
+                  "enum": [
+                    "counter_service",
+                    "casual_sit_down",
+                    "smart_casual",
+                    "white_tablecloth"
+                  ]
+                },
+                {
+                  "const": "unknown"
+                }
+              ],
+              "x-level-anchors": [
+                {
+                  "level": "counter_service",
+                  "anchor": "counter service only"
+                },
+                {
+                  "level": "casual_sit_down",
+                  "anchor": "casual sit-down"
+                },
+                {
+                  "level": "smart_casual",
+                  "anchor": "smart-casual"
+                },
+                {
+                  "level": "white_tablecloth",
+                  "anchor": "white tablecloth"
+                }
+              ]
+            },
+            "design_sensitivity": {
+              "description": "How much the space drives the decision. Cluster C2.",
+              "x-metric": "ordinal_distance",
+              "x-provenance": "synthesized",
+              "oneOf": [
+                {
+                  "enum": [
+                    "doesnt_notice",
+                    "mild_preference",
+                    "room_matters",
+                    "room_over_food"
+                  ]
+                },
+                {
+                  "const": "unknown"
+                }
+              ],
+              "x-level-anchors": [
+                {
+                  "level": "doesnt_notice",
+                  "anchor": "doesn't notice the room"
+                },
+                {
+                  "level": "mild_preference",
+                  "anchor": "mild preference for a nice room"
+                },
+                {
+                  "level": "room_matters",
+                  "anchor": "rules out a place whose room they dislike when there is an alternative"
+                },
+                {
+                  "level": "room_over_food",
+                  "anchor": "will pick a worse meal for a better room"
+                }
+              ]
+            },
+            "party_size_distribution": {
+              "description": "Normalized distribution over party sizes. Cluster C3.",
+              "x-metric": "one_minus_jsd",
+              "x-provenance": "synthesized",
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "1": {
+                      "type": "number",
+                      "minimum": 0.0,
+                      "maximum": 1.0
+                    },
+                    "2": {
+                      "type": "number",
+                      "minimum": 0.0,
+                      "maximum": 1.0
+                    },
+                    "3-5": {
+                      "type": "number",
+                      "minimum": 0.0,
+                      "maximum": 1.0
+                    },
+                    "6+": {
+                      "type": "number",
+                      "minimum": 0.0,
+                      "maximum": 1.0
+                    }
+                  },
+                  "additionalProperties": false,
+                  "description": "Normalized distribution; masses must sum to 1.0."
+                },
+                {
+                  "const": "unknown"
+                }
+              ]
+            },
+            "solo_dining_comfort": {
+              "description": "Comfort eating alone. Cluster C3.",
+              "x-metric": "ordinal_distance",
+              "x-provenance": "synthesized",
+              "oneOf": [
+                {
+                  "enum": [
+                    "wont_eat_alone",
+                    "takeaway_or_counter",
+                    "comfortable_at_table",
+                    "enjoys_solo"
+                  ]
+                },
+                {
+                  "const": "unknown"
+                }
+              ],
+              "x-level-anchors": [
+                {
+                  "level": "wont_eat_alone",
+                  "anchor": "won't eat alone"
+                },
+                {
+                  "level": "takeaway_or_counter",
+                  "anchor": "alone only for takeaway or at a counter"
+                },
+                {
+                  "level": "comfortable_at_table",
+                  "anchor": "comfortable at a table alone"
+                },
+                {
+                  "level": "enjoys_solo",
+                  "anchor": "actively enjoys solo meals"
+                }
+              ]
+            },
+            "travel_radius": {
+              "description": "How far the person will go.",
+              "x-metric": "ordinal_distance",
+              "x-provenance": "synthesized",
+              "oneOf": [
+                {
+                  "enum": [
+                    "walking_distance",
+                    "own_neighborhood",
+                    "anywhere_in_city",
+                    "out_of_town"
+                  ]
+                },
+                {
+                  "const": "unknown"
+                }
+              ],
+              "x-level-anchors": [
+                {
+                  "level": "walking_distance",
+                  "anchor": "only what they can walk to in ten minutes"
+                },
+                {
+                  "level": "own_neighborhood",
+                  "anchor": "one short bus or subway ride, never across town"
+                },
+                {
+                  "level": "anywhere_in_city",
+                  "anchor": "will cross the city for it, but not leave it"
+                },
+                {
+                  "level": "out_of_town",
+                  "anchor": "will get on a train out of town for one meal"
+                }
+              ]
+            },
+            "visit_time_distribution": {
+              "description": "Normalized distribution over visit occasions.",
+              "x-metric": "one_minus_jsd",
+              "x-provenance": "synthesized",
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "weekday-lunch": {
+                      "type": "number",
+                      "minimum": 0.0,
+                      "maximum": 1.0
+                    },
+                    "weekday-evening": {
+                      "type": "number",
+                      "minimum": 0.0,
+                      "maximum": 1.0
+                    },
+                    "weekend-day": {
+                      "type": "number",
+                      "minimum": 0.0,
+                      "maximum": 1.0
+                    },
+                    "weekend-evening": {
+                      "type": "number",
+                      "minimum": 0.0,
+                      "maximum": 1.0
+                    },
+                    "late-night": {
+                      "type": "number",
+                      "minimum": 0.0,
+                      "maximum": 1.0
+                    }
+                  },
+                  "additionalProperties": false,
+                  "description": "Normalized distribution; masses must sum to 1.0."
+                },
+                {
+                  "const": "unknown"
+                }
+              ]
+            },
+            "planning_style": {
+              "description": "Lead time on decisions. Cluster C4.",
+              "x-metric": "ordinal_distance",
+              "x-provenance": "synthesized",
+              "oneOf": [
+                {
+                  "enum": [
+                    "fully_spontaneous",
+                    "decides_same_day",
+                    "books_days_out",
+                    "books_weeks_ahead"
+                  ]
+                },
+                {
+                  "const": "unknown"
+                }
+              ],
+              "x-level-anchors": [
+                {
+                  "level": "fully_spontaneous",
+                  "anchor": "decides on the pavement, already out"
+                },
+                {
+                  "level": "decides_same_day",
+                  "anchor": "picks in the morning for that evening"
+                },
+                {
+                  "level": "books_days_out",
+                  "anchor": "books a few days out"
+                },
+                {
+                  "level": "books_weeks_ahead",
+                  "anchor": "books weeks ahead"
+                }
+              ]
+            },
+            "wait_tolerance": {
+              "description": "Queue tolerance \u2014 how much waiting deters them, not how much they want. Cluster C4.",
+              "x-metric": "ordinal_distance",
+              "x-provenance": "synthesized",
+              "oneOf": [
+                {
+                  "enum": [
+                    "leaves_if_line",
+                    "fifteen_min_max",
+                    "hour_for_the_right_place",
+                    "queue_is_part_of_it"
+                  ]
+                },
+                {
+                  "const": "unknown"
+                }
+              ],
+              "x-level-anchors": [
+                {
+                  "level": "leaves_if_line",
+                  "anchor": "turns around if anyone is waiting ahead of them"
+                },
+                {
+                  "level": "fifteen_min_max",
+                  "anchor": "waits a quarter of an hour, then leaves"
+                },
+                {
+                  "level": "hour_for_the_right_place",
+                  "anchor": "will stand in an hour-long line once they are already there"
+                },
+                {
+                  "level": "queue_is_part_of_it",
+                  "anchor": "plans the evening around being early in the queue; a wait is never a reason to go elsewhere"
+                }
+              ]
+            },
+            "event_types_liked": {
+              "description": "Event formats the person seeks out. Closed vocabulary.",
+              "x-metric": "jaccard",
+              "x-provenance": "synthesized",
+              "oneOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "enum": [
+                      "art_opening",
+                      "book_reading",
+                      "comedy",
+                      "cooking_class",
+                      "dance_night",
+                      "film_screening",
+                      "food_festival",
+                      "karaoke",
+                      "live_jazz",
+                      "live_rock",
+                      "market",
+                      "museum_late",
+                      "open_mic",
+                      "pub_quiz",
+                      "supper_club",
+                      "tasting_menu",
+                      "theater",
+                      "wine_tasting"
+                    ]
+                  },
+                  "uniqueItems": true
+                },
+                {
+                  "const": "unknown"
+                }
+              ]
+            },
+            "event_types_avoided": {
+              "description": "Event formats the person declines. Closed vocabulary.",
+              "x-metric": "jaccard",
+              "x-provenance": "synthesized",
+              "oneOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "enum": [
+                      "art_opening",
+                      "book_reading",
+                      "comedy",
+                      "cooking_class",
+                      "dance_night",
+                      "film_screening",
+                      "food_festival",
+                      "karaoke",
+                      "live_jazz",
+                      "live_rock",
+                      "market",
+                      "museum_late",
+                      "open_mic",
+                      "pub_quiz",
+                      "supper_club",
+                      "tasting_menu",
+                      "theater",
+                      "wine_tasting"
+                    ]
+                  },
+                  "uniqueItems": true
+                },
+                {
+                  "const": "unknown"
+                }
+              ]
+            },
+            "participation_vs_spectating": {
+              "description": "Participation disposition at events.",
+              "x-metric": "ordinal_distance",
+              "x-provenance": "synthesized",
+              "oneOf": [
+                {
+                  "enum": [
+                    "watches_only",
+                    "joins_if_pushed",
+                    "joins_readily",
+                    "seeks_hands_on"
+                  ]
+                },
+                {
+                  "const": "unknown"
+                }
+              ],
+              "x-level-anchors": [
+                {
+                  "level": "watches_only",
+                  "anchor": "watches only"
+                },
+                {
+                  "level": "joins_if_pushed",
+                  "anchor": "takes part only when asked directly"
+                },
+                {
+                  "level": "joins_readily",
+                  "anchor": "joins in unasked at whatever event they happen to be at"
+                },
+                {
+                  "level": "seeks_hands_on",
+                  "anchor": "won't book an event where they would only be watching"
+                }
+              ]
+            },
+            "rating_reliance": {
+              "description": "Weight placed on public ratings. Cluster C4.",
+              "x-metric": "ordinal_distance",
+              "x-provenance": "synthesized",
+              "oneOf": [
+                {
+                  "enum": [
+                    "ignores_ratings",
+                    "glances_at_them",
+                    "checks_before_going",
+                    "threshold_gated"
+                  ]
+                },
+                {
+                  "const": "unknown"
+                }
+              ],
+              "x-level-anchors": [
+                {
+                  "level": "ignores_ratings",
+                  "anchor": "ignores ratings"
+                },
+                {
+                  "level": "glances_at_them",
+                  "anchor": "glances at them"
+                },
+                {
+                  "level": "checks_before_going",
+                  "anchor": "checks ratings before going"
+                },
+                {
+                  "level": "threshold_gated",
+                  "anchor": "won't go below a rating threshold"
+                }
+              ]
+            },
+            "novelty_vs_loyalty": {
+              "description": "Repeat-visit disposition. Cluster C1.",
+              "x-metric": "ordinal_distance",
+              "x-provenance": "synthesized",
+              "oneOf": [
+                {
+                  "enum": [
+                    "same_few_places",
+                    "mostly_regulars",
+                    "mostly_new",
+                    "almost_never_repeats"
+                  ]
+                },
+                {
+                  "const": "unknown"
+                }
+              ],
+              "x-level-anchors": [
+                {
+                  "level": "same_few_places",
+                  "anchor": "returns to the same few places"
+                },
+                {
+                  "level": "mostly_regulars",
+                  "anchor": "mostly regulars, occasional new"
+                },
+                {
+                  "level": "mostly_new",
+                  "anchor": "mostly new places, some regulars"
+                },
+                {
+                  "level": "almost_never_repeats",
+                  "anchor": "almost never repeats a venue"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "idiosyncrasies": {
+      "type": "string",
+      "description": "Free text, both sides. Scored by rubric judge (spec \u00a78.5)."
+    },
+    "importance_weights": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Optional per-field weight vector summing to 1 over a declared field subset. When present in ground truth the scorer additionally reports importance-weighted aggregates. Never a gate.",
+      "additionalProperties": {
+        "type": "number",
+        "minimum": 0.0,
+        "maximum": 1.0
+      }
+    }
+  },
+  "x-clusters": {
+    "C1_exploration": [
+      "adventurousness",
+      "cuisines_liked",
+      "novelty_vs_loyalty"
+    ],
+    "C2_spend": [
+      "price_band_distribution",
+      "deal_seeking",
+      "formality_ceiling",
+      "design_sensitivity"
+    ],
+    "C3_sociality": [
+      "party_size_distribution",
+      "solo_dining_comfort",
+      "noise_preference"
+    ],
+    "C4_deliberateness": [
+      "planning_style",
+      "wait_tolerance",
+      "rating_reliance"
+    ]
+  }
+}

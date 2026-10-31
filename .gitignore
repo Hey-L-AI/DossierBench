@@ -1,0 +1,21 @@
+# Everything a run produces lands in one place (persona_twin.data.work).
+work/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+.venv/
+.env
+# macOS AppleDouble sidecars — this corpus was built on exFAT, where they multiply.
+._*
+.DS_Store
+# Tool lockfile written by `uv run`; the project pins nothing.
+uv.lock
+# LaTeX build output
+paper/*.aux
+paper/*.blg
+paper/*.fdb_latexmk
+paper/*.fls
+paper/*.log
+paper/*.out
+paper/*.synctex.gz

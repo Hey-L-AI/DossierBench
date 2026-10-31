@@ -1,0 +1,220 @@
+\begin{thebibliography}{26}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Aksu and Chen(2024)]{aksu2024granular}
+Taha Aksu and Nancy~F. Chen.
+\newblock Granular change accuracy: A more accurate performance metric for
+  dialogue state tracking.
+\newblock In \emph{Proceedings of the 2024 Joint International Conference on
+  Computational Linguistics, Language Resources and Evaluation (LREC-COLING)},
+  pages 7939--7948, 2024.
+
+\bibitem[Chhikara et~al.(2025)Chhikara, Khant, Aryan, Singh, and
+  Yadav]{chhikara2025mem0}
+Prateek Chhikara, Dev Khant, Saket Aryan, Taranjeet Singh, and Deshraj Yadav.
+\newblock {Mem0}: Building production-ready {AI} agents with scalable long-term
+  memory.
+\newblock In \emph{{ECAI} 2025: 28th European Conference on Artificial
+  Intelligence}, volume 413 of \emph{Frontiers in Artificial Intelligence and
+  Applications}, pages 2993--3000. IOS Press, 2025.
+\newblock \doi{10.3233/FAIA251160}.
+
+\bibitem[Christakopoulou et~al.(2016)Christakopoulou, Radlinski, and
+  Hofmann]{christakopoulou2016towards}
+Konstantina Christakopoulou, Filip Radlinski, and Katja Hofmann.
+\newblock Towards conversational recommender systems.
+\newblock In \emph{Proceedings of the 22nd ACM SIGKDD International Conference
+  on Knowledge Discovery and Data Mining (KDD)}, pages 815--824, 2016.
+\newblock \doi{10.1145/2939672.2939746}.
+
+\bibitem[Flynt(2026)]{flynt2026groundeval}
+Jeffrey Flynt.
+\newblock {GroundEval}: A deterministic replacement for {LLM-as-Judge} in
+  stateful agent evaluation.
+\newblock \emph{arXiv preprint arXiv:2606.22737}, 2026.
+
+\bibitem[Fostiropoulos et~al.(2026)Fostiropoulos, Azhar, Sawwan, Fang, Liu,
+  Liu, Yu, Guo, Wang, Liu, and Fan]{fostiropoulos2026gistbench}
+Iordanis Fostiropoulos, Muhammad~Rafay Azhar, Abdalaziz Sawwan, Boyu Fang,
+  Yuchen Liu, Jiayi Liu, Hanchao Yu, Qi~Guo, Jianyu Wang, Fei Liu, and Xiangjun
+  Fan.
+\newblock {GISTBench}: Evaluating {LLM} user understanding via evidence-based
+  interest verification.
+\newblock \emph{arXiv preprint arXiv:2603.29112}, 2026.
+
+\bibitem[Joren et~al.(2025)Joren, Zhang, Ferng, Juan, Taly, and
+  Rashtchian]{joren2024sufficient}
+Hailey Joren, Jianyi Zhang, Chun-Sung Ferng, Da-Cheng Juan, Ankur Taly, and
+  Cyrus Rashtchian.
+\newblock Sufficient context: A new lens on retrieval augmented generation
+  systems.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2025.
+\newblock arXiv:2411.06037.
+
+\bibitem[Kadavath et~al.(2022)Kadavath, Conerly, Askell, Henighan, Drain,
+  Perez, Schiefer, Hatfield-Dodds, DasSarma, Tran-Johnson,
+  et~al.]{kadavath2022know}
+Saurav Kadavath, Tom Conerly, Amanda Askell, Tom Henighan, Dawn Drain, Ethan
+  Perez, Nicholas Schiefer, Zac Hatfield-Dodds, Nova DasSarma, Eli
+  Tran-Johnson, et~al.
+\newblock Language models (mostly) know what they know.
+\newblock \emph{arXiv preprint arXiv:2207.05221}, 2022.
+
+\bibitem[Kim et~al.(2022)Kim, Yoon, Lee, Kang, and Kim]{kim2022mismatch}
+Takyoung Kim, Hoonsang Yoon, Yukyung Lee, Pilsung Kang, and Misuk Kim.
+\newblock Mismatch between multi-turn dialogue and its evaluation metric in
+  dialogue state tracking.
+\newblock In \emph{Proceedings of the 60th Annual Meeting of the Association
+  for Computational Linguistics (Volume 2: Short Papers)}, pages 297--309,
+  2022.
+\newblock \doi{10.18653/v1/2022.acl-short.33}.
+
+\bibitem[Lei et~al.(2020)Lei, He, Miao, Wu, Hong, Kan, and
+  Chua]{lei2020estimation}
+Wenqiang Lei, Xiangnan He, Yisong Miao, Qingyun Wu, Richang Hong, Min-Yen Kan,
+  and Tat-Seng Chua.
+\newblock Estimation-action-reflection: Towards deep interaction between
+  conversational and recommender systems.
+\newblock In \emph{Proceedings of the 13th International Conference on Web
+  Search and Data Mining (WSDM)}, pages 304--312, 2020.
+\newblock \doi{10.1145/3336191.3371769}.
+
+\bibitem[Ma et~al.(2026)Ma, Zhou, Huang, Yang, Ma, Wang, Li, Miao, Yu, and
+  Wang]{ma2026memprobe}
+Enze Ma, Yufan Zhou, Wei-Chieh Huang, Jie Yang, Huanhuan Ma, Zixuan Wang,
+  Chengze Li, Chunyu Miao, Philip~S. Yu, and Zhen Wang.
+\newblock {MemAudit}: Auditing long-term agent memory via hidden user-state
+  recovery.
+\newblock \emph{arXiv preprint arXiv:2606.24595}, 2026.
+
+\bibitem[Maharana et~al.(2024)Maharana, Lee, Tulyakov, Bansal, Barbieri, and
+  Fang]{maharana2024locomo}
+Adyasha Maharana, Dong-Ho Lee, Sergey Tulyakov, Mohit Bansal, Francesco
+  Barbieri, and Yuwei Fang.
+\newblock Evaluating very long-term conversational memory of {LLM} agents.
+\newblock In \emph{Proceedings of the 62nd Annual Meeting of the Association
+  for Computational Linguistics (Volume 1: Long Papers)}, pages 13851--13870,
+  2024.
+\newblock \doi{10.18653/v1/2024.acl-long.747}.
+
+\bibitem[Narasimhan and Narasimhan(2026)]{narasimhan2026taurec}
+Bharath~Sivaram Narasimhan and Karthik~R. Narasimhan.
+\newblock {$\tau$-Rec}: A verifiable benchmark for agentic recommender systems.
+\newblock In \emph{Proceedings of the 20th ACM Conference on Recommender
+  Systems (RecSys), Reproducibility and Resource Track}, 2026.
+\newblock arXiv:2606.10156.
+
+\bibitem[Nguyen et~al.(2024)Nguyen, Nguyen, Doan, and Nguyen]{nguyen2024cold}
+Hieu~Trung Nguyen, Duy Nguyen, Khoa Doan, and Viet~Anh Nguyen.
+\newblock Cold-start recommendation by personalized embedding region
+  elicitation.
+\newblock In \emph{Proceedings of the 40th Conference on Uncertainty in
+  Artificial Intelligence (UAI)}, volume 244 of \emph{Proceedings of Machine
+  Learning Research}, pages 2766--2786, 2024.
+\newblock arXiv:2406.00973.
+
+\bibitem[Oh et~al.(2026)Oh, Lee, Park, Kim, and Yoon]{oh2026omnipersona}
+Yeongtak Oh, Dongwook Lee, Sangkwon Park, Heeseung Kim, and Sungroh Yoon.
+\newblock {Omni-Persona}: Systematic benchmarking and improving omnimodal
+  personalization.
+\newblock \emph{arXiv preprint arXiv:2605.09996}, 2026.
+
+\bibitem[Packer et~al.(2023)Packer, Wooders, Lin, Fang, Patil, Stoica, and
+  Gonzalez]{packer2023memgpt}
+Charles Packer, Sarah Wooders, Kevin Lin, Vivian Fang, Shishir~G. Patil, Ion
+  Stoica, and Joseph~E. Gonzalez.
+\newblock {MemGPT}: Towards {LLMs} as operating systems.
+\newblock \emph{arXiv preprint arXiv:2310.08560}, 2023.
+
+\bibitem[Rastogi et~al.(2020)Rastogi, Zang, Sunkara, Gupta, and
+  Khaitan]{rastogi2020schema}
+Abhinav Rastogi, Xiaoxue Zang, Srinivas Sunkara, Raghav Gupta, and Pranav
+  Khaitan.
+\newblock Towards scalable multi-domain conversational agents: The
+  schema-guided dialogue dataset.
+\newblock In \emph{Proceedings of the AAAI Conference on Artificial
+  Intelligence}, volume~34, pages 8689--8696, 2020.
+\newblock \doi{10.1609/aaai.v34i05.6394}.
+
+\bibitem[Shi et~al.(2026)Shi, Tang, and Tung]{shi2026atma}
+Zitong Shi, Yixuan Tang, and Anthony Kum~Hoe Tung.
+\newblock {A-TMA}: Decoupling state-aware memory failures in long-term agent
+  memory.
+\newblock \emph{arXiv preprint arXiv:2607.01935}, 2026.
+
+\bibitem[Sun and Zhang(2018)]{sun2018conversational}
+Yueming Sun and Yi~Zhang.
+\newblock Conversational recommender system.
+\newblock In \emph{Proceedings of the 41st International ACM SIGIR Conference
+  on Research and Development in Information Retrieval}, pages 235--244, 2018.
+\newblock \doi{10.1145/3209978.3210002}.
+
+\bibitem[Sun et~al.(2026)Sun, Zhang, and Sheng]{sun2026miragebench}
+Yushi Sun, Yanjie Zhang, and Rui Sheng.
+\newblock The personalization mirage: How {LLMs} fabricate user profiles, and
+  why self-monitoring misleads.
+\newblock \emph{arXiv preprint arXiv:2608.04570}, 2026.
+
+\bibitem[Thorne et~al.(2018)Thorne, Vlachos, Christodoulopoulos, and
+  Mittal]{thorne2018fever}
+James Thorne, Andreas Vlachos, Christos Christodoulopoulos, and Arpit Mittal.
+\newblock {FEVER}: a large-scale dataset for fact extraction and
+  {VERification}.
+\newblock In \emph{Proceedings of the 2018 Conference of the North American
+  Chapter of the Association for Computational Linguistics: Human Language
+  Technologies, Volume 1 (Long Papers)}, pages 809--819, 2018.
+\newblock \doi{10.18653/v1/N18-1074}.
+
+\bibitem[Wang et~al.(2026{\natexlab{a}})Wang, Zhou, Guo, Chen, and
+  Zhang]{wang2026finperma}
+Ben Wang, Kang Zhou, Lifan Guo, Feng Chen, and Chi Zhang.
+\newblock {FinPerMA}: A theory-informed, event-grounded personalized-memory
+  benchmark for {LLM} agents.
+\newblock \emph{arXiv preprint arXiv:2608.04095}, 2026{\natexlab{a}}.
+
+\bibitem[Wang et~al.(2026{\natexlab{b}})Wang, Duan, Wang, Zhang, and
+  Wei]{wang2026streamprofilebench}
+Sizhe Wang, Feiyu Duan, Juelin Wang, Liwen Zhang, and Zhongyu Wei.
+\newblock {StreamProfileBench}: A benchmark for fine-grained user profile
+  inference in real-world streaming scenarios.
+\newblock \emph{arXiv preprint arXiv:2605.25758}, 2026{\natexlab{b}}.
+
+\bibitem[Wanyan et~al.(2026)Wanyan, Ma, Hettiachchi, Xu, and
+  Chan]{wanyan2026task}
+Xinye Wanyan, Chenglong Ma, Danula Hettiachchi, Ziqi Xu, and Jeffrey Chan.
+\newblock Task-aware automated user profile generation for recommendation
+  simulation using large language models.
+\newblock In \emph{Proceedings of the 49th International ACM SIGIR Conference
+  on Research and Development in Information Retrieval}, pages 1937--1947,
+  2026.
+\newblock \doi{10.1145/3805712.3809707}.
+
+\bibitem[Xie et~al.(2026)Xie, Zhou, Li, Parsa, Zhou, Ding, Arvind, Wang,
+  Braverman, Payani, Zheng, and Liu]{xie2026dynamicmem}
+Wenya Xie, Shengming Zhou, Zelin Li, Pouya Parsa, Shuang Zhou, Xinheng Ding,
+  Chinmay Arvind, Guanchu Wang, Vladimir Braverman, Ali Payani, Yantao Zheng,
+  and Zirui Liu.
+\newblock {DynamicMem}: A long-horizon memory benchmark in real-world settings.
+\newblock \emph{arXiv preprint arXiv:2606.22877}, 2026.
+
+\bibitem[Xu et~al.(2022)Xu, Szlam, and Weston]{xu2022msc}
+Jing Xu, Arthur Szlam, and Jason Weston.
+\newblock Beyond goldfish memory: Long-term open-domain conversation.
+\newblock In \emph{Proceedings of the 60th Annual Meeting of the Association
+  for Computational Linguistics (Volume 1: Long Papers)}, pages 5180--5197,
+  2022.
+\newblock \doi{10.18653/v1/2022.acl-long.356}.
+
+\bibitem[Zhong et~al.(2024)Zhong, Guo, Gao, Ye, and Wang]{zhong2024memorybank}
+Wanjun Zhong, Lianghong Guo, Qiqi Gao, He~Ye, and Yanlin Wang.
+\newblock {MemoryBank}: Enhancing large language models with long-term memory.
+\newblock In \emph{Proceedings of the AAAI Conference on Artificial
+  Intelligence}, volume~38, pages 19724--19731, 2024.
+\newblock \doi{10.1609/aaai.v38i17.29946}.
+
+\end{thebibliography}

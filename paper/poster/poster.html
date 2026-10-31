@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>DossierBench poster</title>
+<!--
+  PALM @ NeurIPS 2026 workshop poster, 24 x 36 in portrait.
+  Build the PDF (from this directory; needs internet for the Google Fonts):
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new \
+      --no-pdf-header-footer --virtual-time-budget=15000 \
+      --print-to-pdf=poster.pdf "file://$PWD/poster.html"
+  Every number is from main.tex. The evidence map is subject gen-002 from
+  runs/corpus-n50-fullpassfix-2026-10-14.json (the same data as fig_evidence_map.pdf).
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=block" rel="stylesheet">
+<style>
+  @page { size: 24in 36in; margin: 0; }
+
+  :root {
+    --ink: #1d2733;
+    --muted: #5a6676;
+    --rule: #d6dce4;
+    --strong: #25609f;
+    --weak: #f0b062;
+    --none: #e2e7ee;
+    --fab: #b23a48;
+    --paper: #ffffff;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--paper); }
+  body {
+    width: 24in; height: 36in; overflow: hidden;
+    padding: 0.95in 1.1in 0.8in;
+    color: var(--ink);
+    font: 400 27pt/1.38 "IBM Plex Sans", sans-serif;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+    display: flex; flex-direction: column;
+  }
+  code { font-family: "IBM Plex Mono", monospace; font-size: 0.88em; font-weight: 500; }
+  .muted { color: var(--muted); }
+  .b0 { background: var(--none); } .b1 { background: var(--weak); } .b2 { background: var(--strong); }
+
+  /* ---------- header ---------- */
+  header { display: grid; grid-template-columns: 1fr auto; column-gap: 0.8in; align-items: end; }
+  .mark { display: flex; gap: 0.08in; margin-bottom: 0.26in; }
+  .mark i { width: 0.3in; height: 0.3in; border-radius: 3px; }
+  h1 {
+    font: 600 128pt/0.92 "Newsreader", serif; letter-spacing: -0.02em;
+    font-variation-settings: "opsz" 72;
+  }
+  .subtitle {
+    font: 400 41pt/1.12 "Newsreader", serif; margin-top: 0.2in; white-space: nowrap;
+    font-variation-settings: "opsz" 48;
+  }
+  .byline { margin-top: 0.36in; font-size: 27pt; line-height: 1.3; }
+  .affil { font-size: 20pt; color: var(--muted); margin-top: 0.08in; }
+  .side { align-self: stretch; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-end; }
+  .logo { height: 0.8in; width: auto; display: block; margin-top: 0.12in; }
+  .qrs { display: flex; gap: 0.45in; }
+  .qr-item { text-align: center; font-size: 18pt; line-height: 1.3; color: var(--muted); }
+  .qr-item svg { width: 1.7in; height: 1.7in; display: block; margin: 0 auto 0.12in; }
+  .qr-item b { display: block; color: var(--ink); font-weight: 600; font-size: 22pt; }
+
+  .hr { height: 3px; background: var(--ink); margin: 0.42in 0 0.5in; }
+
+  /* ---------- shared ---------- */
+  h2 {
+    font: 600 46pt/1.1 "Newsreader", serif; letter-spacing: -0.01em;
+    font-variation-settings: "opsz" 48; margin-bottom: 0.24in;
+    display: flex; gap: 0.25in; align-items: baseline;
+  }
+  h2 .n { color: var(--strong); font-weight: 500; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; column-gap: 1in; }
+  .row { margin-top: 0.75in; }
+
+  /* ---------- 1: the problem ---------- */
+  .claim { font: 400 36pt/1.28 "Newsreader", serif; font-variation-settings: "opsz" 36; margin-top: 0.3in; }
+  .example { border-left: 6px solid var(--ink); padding: 0.04in 0 0.04in 0.45in; align-self: start; }
+  .example blockquote { font: italic 400 31pt/1.32 "Newsreader", serif; margin-bottom: 0.3in; }
+  .outcome { display: grid; grid-template-columns: 0.42in 1fr; column-gap: 0.22in; align-items: center; }
+  .outcome + .outcome { margin-top: 0.1in; }
+  .sw { width: 0.42in; height: 0.42in; border-radius: 4px; }
+  .punch { font: 600 34pt/1.2 "Newsreader", serif; margin-top: 0.3in; }
+
+  /* ---------- 2: the evidence map ---------- */
+  .band { display: grid; grid-template-columns: 13in 1fr; column-gap: 0.8in; }
+  .map {
+    display: grid; grid-template-columns: 2.1in 3.2in repeat(16, 1fr);
+    column-gap: 4px; row-gap: 4px; align-items: center;
+  }
+  .map .g { font-size: 18pt; line-height: 1.1; color: var(--muted); align-self: start; padding-top: 0.03in; }
+  .map .f { font-size: 20pt; line-height: 1.1; white-space: nowrap; }
+  .map .c { height: 0.31in; border-radius: 3px; }
+  .map .gap { grid-column: 1 / -1; height: 0.06in; }
+  .map .ck { font-size: 18pt; color: var(--muted); text-align: center; }
+  .map .axis-title { text-align: center; font-size: 19pt; color: var(--muted); margin-top: 0.04in; }
+  .map .lead-row { font-size: 19pt; color: var(--muted); }
+
+  .rules { display: grid; grid-template-columns: 0.5in auto 1fr 1fr; column-gap: 0.22in; row-gap: 0.26in; align-items: center; margin-top: 0.5in; font-size: 23pt; line-height: 1.25; white-space: nowrap; }
+  .rules .h { font-size: 21pt; color: var(--muted); }
+  .rules .sw { width: 0.5in; height: 0.5in; }
+  .rules b { font-weight: 600; }
+  .bad { color: var(--fab); font-weight: 600; }
+
+  /* ---------- 3 + 4 ---------- */
+  svg text { font-family: "IBM Plex Sans", sans-serif; fill: var(--ink); }
+  svg .m { fill: var(--muted); }
+  svg .mono { font-family: "IBM Plex Mono", monospace; font-weight: 500; }
+  .chart { display: block; width: 100%; height: auto; margin: 0.15in 0 0.2in; }
+  .list p { padding-left: 0.42in; position: relative; }
+  .list p + p { margin-top: 0.24in; }
+  .list p::before {
+    content: ""; position: absolute; left: 0; top: 0.17in; width: 0.19in; height: 0.19in;
+    border-radius: 2px; background: var(--ink);
+  }
+
+  /* ---------- take-home strip ---------- */
+  .take { margin-top: auto; }
+  .take-grid { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 0.6in; }
+  .take-grid div {
+    border-top: 8px solid var(--strong); padding-top: 0.18in;
+    font: 500 30pt/1.28 "Newsreader", serif; font-variation-settings: "opsz" 24;
+  }
+  .take-grid div:nth-child(2) { border-top-color: var(--fab); }
+  .foot { display: flex; justify-content: space-between; align-items: baseline; margin-top: 0.4in; font-size: 19pt; color: var(--muted); }
+  .foot b { color: var(--ink); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="mark" aria-hidden="true"><i class="b0"></i><i class="b1"></i><i class="b2"></i></div>
+    <h1>DossierBench</h1>
+    <div class="subtitle">Scoring a recommender’s model of you on calibration, not recall</div>
+    <div class="byline">Muhammad Bilal<sup>1,2</sup> and João V. Graça<sup>1</sup></div>
+    <div class="affil"><sup>1</sup>Soko (soko.fyi) &nbsp;&nbsp; <sup>2</sup>King Abdullah University of Science and Technology (KAUST) &nbsp;&nbsp; PALM workshop at NeurIPS 2026</div>
+  </div>
+  <div class="side">
+  <img class="logo" src="soko-wordmark.svg" alt="Soko">
+  <div class="qrs">
+    <div class="qr-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 33" class="qr" shape-rendering="crispEdges"><path stroke="#1d2733" d="M0 0.5h7m2 0h1m1 0h1m6 0h1m2 0h2m3 0h7m-33 1h1m5 0h1m1 0h2m1 0h4m1 0h1m1 0h1m1 0h2m4 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m3 0h2m1 0h2m1 0h2m1 0h2m1 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h2m1 0h2m5 0h1m1 0h2m1 0h1m2 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m8 0h1m1 0h4m2 0h1m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m2 0h1m2 0h1m1 0h1m1 0h2m2 0h3m3 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-25 1h1m2 0h2m6 0h1m3 0h2m-25 1h1m5 0h1m1 0h8m1 0h2m3 0h1m1 0h3m2 0h3m-30 1h2m1 0h1m2 0h1m2 0h2m2 0h1m2 0h2m1 0h3m4 0h3m-30 1h4m1 0h1m5 0h1m2 0h2m1 0h1m2 0h1m3 0h1m2 0h1m1 0h2m-29 1h2m2 0h1m1 0h1m2 0h1m1 0h2m2 0h3m1 0h2m3 0h4m-28 1h6m4 0h6m1 0h1m2 0h1m2 0h1m5 0h1m-33 1h1m1 0h1m1 0h1m2 0h2m2 0h4m1 0h5m2 0h1m1 0h3m2 0h3m-33 1h2m1 0h1m2 0h1m1 0h2m2 0h2m3 0h1m4 0h1m2 0h7m-30 1h1m2 0h1m4 0h1m2 0h3m3 0h1m3 0h1m1 0h1m1 0h1m1 0h2m1 0h1m-32 1h2m2 0h2m2 0h2m3 0h1m1 0h2m1 0h1m2 0h4m1 0h2m3 0h1m-33 1h3m1 0h2m3 0h2m4 0h5m3 0h1m2 0h1m2 0h4m-33 1h1m1 0h2m1 0h2m1 0h1m3 0h1m2 0h1m3 0h1m1 0h1m1 0h1m1 0h3m1 0h2m1 0h1m-32 1h1m9 0h3m3 0h2m1 0h1m1 0h2m1 0h2m1 0h5m-33 1h1m1 0h1m2 0h6m1 0h1m2 0h2m5 0h1m1 0h1m2 0h3m1 0h2m-33 1h1m1 0h3m3 0h1m1 0h3m3 0h1m1 0h2m3 0h1m3 0h3m-30 1h1m4 0h2m1 0h2m1 0h1m1 0h4m3 0h1m1 0h1m1 0h1m1 0h1m4 0h1m-32 1h1m1 0h2m4 0h2m1 0h1m1 0h1m4 0h1m1 0h1m6 0h1m1 0h3m-32 1h2m4 0h1m1 0h5m2 0h2m2 0h2m2 0h7m2 0h1m-25 1h3m3 0h3m1 0h3m3 0h1m3 0h1m1 0h1m1 0h1m-33 1h7m2 0h3m3 0h1m2 0h1m1 0h1m2 0h2m1 0h1m1 0h1m1 0h1m-31 1h1m5 0h1m2 0h2m3 0h1m4 0h2m1 0h3m3 0h4m-32 1h1m1 0h3m1 0h1m3 0h1m2 0h3m2 0h1m3 0h1m1 0h6m-30 1h1m1 0h3m1 0h1m2 0h5m2 0h1m2 0h2m2 0h3m1 0h6m-33 1h1m1 0h3m1 0h1m4 0h1m2 0h1m1 0h7m1 0h1m2 0h2m2 0h2m-33 1h1m5 0h1m2 0h2m2 0h1m1 0h2m2 0h1m2 0h1m2 0h6m-31 1h7m1 0h1m2 0h2m1 0h1m1 0h2m4 0h6m3 0h1"/></svg><b>Dataset</b>Hugging Face</div>
+    <div class="qr-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29 29" class="qr" shape-rendering="crispEdges"><path stroke="#1d2733" d="M0 0.5h7m1 0h2m2 0h3m3 0h1m1 0h1m1 0h7m-29 1h1m5 0h1m2 0h1m4 0h1m3 0h1m1 0h1m1 0h1m5 0h1m-29 1h1m1 0h3m1 0h1m1 0h1m4 0h1m2 0h2m1 0h2m1 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m2 0h2m1 0h3m3 0h3m1 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m2 0h1m1 0h2m1 0h2m2 0h1m3 0h1m1 0h3m1 0h1m-29 1h1m5 0h1m1 0h1m4 0h2m3 0h1m1 0h1m1 0h1m5 0h1m-29 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-20 1h1m5 0h1m4 0h1m-21 1h1m1 0h1m3 0h2m7 0h1m2 0h3m2 0h1m2 0h1m1 0h1m-28 1h3m1 0h1m3 0h1m1 0h1m3 0h3m1 0h5m3 0h2m-29 1h1m1 0h1m3 0h3m1 0h3m1 0h2m1 0h1m1 0h2m1 0h5m1 0h1m-27 1h2m3 0h4m1 0h1m1 0h1m1 0h1m1 0h1m2 0h1m2 0h2m-26 1h1m1 0h1m1 0h1m1 0h2m1 0h2m1 0h1m2 0h3m2 0h1m1 0h2m4 0h1m-29 1h1m1 0h1m1 0h1m3 0h2m1 0h3m1 0h2m3 0h1m1 0h2m3 0h2m-28 1h2m1 0h4m1 0h1m3 0h3m1 0h3m1 0h4m3 0h1m-29 1h1m1 0h1m1 0h2m1 0h1m2 0h2m6 0h3m1 0h2m-23 1h3m2 0h1m1 0h2m2 0h3m1 0h2m2 0h3m5 0h1m-27 1h2m1 0h1m1 0h2m1 0h1m1 0h1m2 0h3m1 0h1m2 0h2m2 0h3m-29 1h2m2 0h5m4 0h3m1 0h3m4 0h2m2 0h1m-26 1h3m2 0h5m2 0h1m2 0h1m1 0h1m1 0h1m1 0h1m-25 1h2m1 0h7m2 0h4m2 0h1m1 0h6m1 0h1m-20 1h1m4 0h1m1 0h3m2 0h1m3 0h3m1 0h1m-29 1h7m1 0h1m1 0h1m4 0h1m4 0h1m1 0h1m1 0h1m3 0h1m-29 1h1m5 0h1m2 0h5m1 0h1m2 0h3m3 0h1m-25 1h1m1 0h3m1 0h1m3 0h1m2 0h1m1 0h1m1 0h1m1 0h7m1 0h1m-28 1h1m1 0h3m1 0h1m2 0h3m1 0h1m1 0h2m2 0h3m2 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m1 0h1m3 0h1m1 0h2m1 0h1m3 0h1m2 0h1m2 0h2m-29 1h1m5 0h1m4 0h1m3 0h2m3 0h1m2 0h3m-26 1h7m1 0h4m1 0h2m1 0h1m3 0h1m3 0h2m2 0h1"/></svg><b>Code</b>GitHub</div>
+  </div>
+  </div>
+</header>
+
+<div class="hr"></div>
+
+<!-- ============ 1: the problem ============ -->
+<section class="cols">
+  <div>
+    <h2><span class="n">1</span>Recall misses invented preferences</h2>
+    <p>A profile that invents a preference misleads the recommender on every later suggestion. Recall tests can’t see it.</p>
+    <p class="claim">We score <b>calibration</b>: commit only where the conversation gives grounds, abstain everywhere else.</p>
+  </div>
+  <div class="example">
+    <blockquote>“Looking for somewhere to eat tonight, just me. […] I just don’t want to be crossing the whole city for it.”</blockquote>
+    <div class="outcome"><i class="sw b1"></i><div><b>Weak:</b> travel radius</div></div>
+    <div class="outcome"><i class="sw b0"></i><div><b>No evidence:</b> spice tolerance (true value: <code>seeks_hottest</code>)</div></div>
+    <div class="punch">Writing <code style="font-size:0.8em">seeks_hottest</code> now is right, and still a fabrication.</div>
+  </div>
+</section>
+
+<!-- ============ 2: the evidence map ============ -->
+<section class="row">
+  <h2><span class="n">2</span>The evidence map: what could a careful reader know so far?</h2>
+  <div class="band">
+    <div class="map" id="map"></div>
+    <div>
+      <p>50 synthetic users, 612 chat sessions, 24 profile fields. A system reads one new session at a time and fills in the profile, or writes <code>unknown</code>.</p>
+      <div class="rules">
+        <span></span><span></span><span class="h">Commit</span><span class="h">Abstain</span>
+        <i class="sw b2"></i><b>Strong</b><span>scored by match</span><span>miss, 0</span>
+        <i class="sw b1"></i><b>Weak</b><span>scored by match</span><span>5/6 credit</span>
+        <i class="sw b0"></i><b>No evidence</b><span class="bad">fabrication, −1</span><span>correct, 0</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3 + 4: results and failures ============ -->
+<section class="cols row">
+  <div>
+    <h2><span class="n">3</span>Simple extractors calibrate well</h2>
+    <svg class="chart" viewBox="0 0 1008 500" role="img" aria-label="Skill by model and system">
+      <!-- x(v) = 300 + 640 v -->
+      <g font-size="26">
+        <circle cx="13" cy="24" r="12" fill="#25609f"/><text x="36" y="33" class="mono">prompted</text>
+        <circle cx="245" cy="24" r="11" fill="#fff" stroke="#25609f" stroke-width="4"/><text x="268" y="33" class="mono">notebook</text>
+        <path d="M480 10 l14 14 l-14 14 l-14 -14 z" fill="#b23a48"/><text x="504" y="33"><tspan class="mono">memory</tspan> <tspan class="m">(2× calls)</tspan></text>
+      </g>
+      <g stroke="#e3e7ec" stroke-width="2">
+        <line x1="460" y1="68" x2="460" y2="414"/><line x1="620" y1="68" x2="620" y2="414"/><line x1="780" y1="68" x2="780" y2="414"/>
+      </g>
+      <line x1="300" y1="68" x2="300" y2="414" stroke="#1d2733" stroke-width="3"/>
+      <line x1="940" y1="68" x2="940" y2="414" stroke="#1d2733" stroke-width="2" stroke-dasharray="6 6"/>
+
+      <g font-size="28">
+        <text x="0" y="118">Gemini 3.7 Flash</text>
+        <text x="0" y="212">GPT-5.6 Luna</text>
+        <text x="0" y="308">DeepSeek V4 Pro</text>
+        <text x="0" y="390">GLM-5.3 Flash</text>
+      </g>
+      <g stroke-width="4" stroke-linecap="round" stroke="#25609f" opacity="0.32">
+        <line x1="300" y1="96" x2="820.3" y2="96"/><line x1="300" y1="122" x2="805" y2="122"/>
+        <line x1="300" y1="176" x2="728.2" y2="176"/><line x1="300" y1="202" x2="748" y2="202"/>
+        <line x1="300" y1="286" x2="677.6" y2="286"/><line x1="300" y1="312" x2="684.6" y2="312"/>
+        <line x1="300" y1="368" x2="618.1" y2="368"/><line x1="300" y1="394" x2="577.8" y2="394"/>
+      </g>
+      <line x1="300" y1="228" x2="615.5" y2="228" stroke="#b23a48" stroke-width="4" stroke-linecap="round" opacity="0.32"/>
+      <g fill="#25609f">
+        <circle cx="820.3" cy="96" r="12"/><circle cx="728.2" cy="176" r="12"/>
+        <circle cx="677.6" cy="286" r="12"/><circle cx="618.1" cy="368" r="12"/>
+      </g>
+      <g fill="#fff" stroke="#25609f" stroke-width="4">
+        <circle cx="805" cy="122" r="11"/><circle cx="748" cy="202" r="11"/>
+        <circle cx="684.6" cy="312" r="11"/><circle cx="577.8" cy="394" r="11"/>
+      </g>
+      <path d="M615.5 214 l14 14 l-14 14 l-14 -14 z" fill="#b23a48"/>
+      <g font-size="23">
+        <text class="m" x="841" y="104">0.81</text><text class="m" x="825" y="130">0.79</text>
+        <text class="m" x="749" y="184">0.67</text><text class="m" x="768" y="210">0.70</text>
+        <text class="m" x="638" y="236">0.49</text>
+        <text class="m" x="698" y="294">0.59</text><text class="m" x="705" y="320">0.60</text>
+        <text class="m" x="639" y="376">0.50</text><text class="m" x="598" y="402">0.43</text>
+      </g>
+      <g font-size="23" text-anchor="middle">
+        <text class="m" x="460" y="450">0.25</text><text class="m" x="620" y="450">0.5</text><text class="m" x="780" y="450">0.75</text>
+      </g>
+      <text x="300" y="451" font-size="25" font-weight="600" text-anchor="middle">0 say nothing</text>
+      <text x="940" y="451" font-size="25" font-weight="600" text-anchor="middle">1 oracle</text>
+      <text class="m" x="620" y="492" font-size="23" text-anchor="middle">skill (guessing every field scores about −4)</text>
+    </svg>
+    <div class="list">
+      <p>Switching the model moves skill over 5× more than switching <code>prompted</code> for <code>notebook</code>.</p>
+      <p>The memory layer scores lower at twice the calls.</p>
+    </div>
+  </div>
+  <div>
+    <h2><span class="n">4</span>Main failure: committing too early</h2>
+    <div class="list">
+      <p>Half to three-quarters of mistakes are guesses made before any evidence. The guess is right at most 17% of the time.</p>
+      <p>The guess is usually the middle of the scale: “notices value”, “fine with lively”.</p>
+      <p>Every model trips on the same cues: “a proper table rather than perching” becomes the hard constraint <code>seating_required</code>.</p>
+      <p>The memory layer also loses what it knew: errors flicker wrong, right, wrong.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ take-home strip ============ -->
+<section class="take">
+  <div class="take-grid">
+    <div>Score whether a profile knows when it doesn’t know.</div>
+    <div>Committing before the evidence arrives is the main failure.</div>
+    <div>Simple single-pass extractors beat a memory layer here.</div>
+  </div>
+  <div class="foot">
+    <span><b>Limits.</b> Synthetic data, one domain (dining). We score the profile, not the recommendations.</span>
+    <span>bilal@heyl.ai</span>
+  </div>
+</section>
+
+<script>
+  // Subject gen-002: 24 fields x 16 checkpoints; 0 unevidenced, 1 weak, 2 strong.
+  const M = ["0000000000000000","0000000000000000","0000000000000000","0000000002222222",
+    "0111111111111222","1111111111111111","0111122222222222","0001111112222222",
+    "1111112222222222","0001111122222222","0011111111111111","1111112222222222",
+    "0000001111111111","1111122222222222","1111111111111111","0000000000000000",
+    "1111122222222222","1111111111111222","0000000000000000","0000000000000001",
+    "0000000000000011","0000000000000011","0000000000000000","1111111111111112"];
+  const groups = [
+    ["Hard constraints", ["dietary", "allergies", "accessibility needs", "alcohol-free required"]],
+    ["Taste", ["cuisines liked", "cuisines avoided", "spice tolerance", "adventurousness"]],
+    ["Spend", ["price band", "deal seeking"]],
+    ["Ambiance", ["noise", "formality ceiling", "design sensitivity"]],
+    ["Social", ["party size", "solo dining comfort"]],
+    ["Logistics", ["travel radius", "visit time", "planning style", "wait tolerance"]],
+    ["Events", ["event types liked", "event types avoided", "joins in or watches"]],
+    ["Quality", ["rating reliance", "novelty vs loyalty"]],
+  ];
+  const map = document.getElementById("map");
+  const el = (cls, text) => { const d = document.createElement("div"); d.className = cls; if (text != null) d.textContent = text; return d; };
+  const head = el("lead-row", "One user, session by session");
+  head.style.gridColumn = "1 / 3";
+  map.append(head);
+  for (let c = 0; c < 16; c++) map.append(el("ck", c + 1));
+  let r = 0;
+  groups.forEach(([g, fields], gi) => {
+    if (gi) map.append(el("gap"));
+    fields.forEach((f, fi) => {
+      map.append(el("g", fi === 0 ? g : ""), el("f", f));
+      for (const v of M[r]) map.append(el("c b" + v));
+      r++;
+    });
+  });
+  const t = el("axis-title", "sessions read so far");
+  t.style.gridColumn = "3 / -1";
+  map.append(t);
+</script>
+</body>
+</html>

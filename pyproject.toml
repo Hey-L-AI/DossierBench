@@ -1,0 +1,38 @@
+[project]
+name = "dossierbench"
+version = "0.5.0"
+description = "DossierBench — scoring persona memory on calibration, not recall"
+authors = [{ name = "Muhammad Bilal" }, { name = "João V. Graça" }]
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "Apache-2.0" }
+dependencies = []
+
+[project.urls]
+Repository = "https://github.com/Hey-L-AI/DossierBench"
+Dataset = "https://huggingface.co/datasets/tangents/dossierbench"
+
+[project.optional-dependencies]
+# The scorer is stdlib-only on purpose: it must run with a bare `python` and must never depend
+# on a model. Everything below is for a side of the pipeline that does.
+data = ["huggingface_hub>=0.23"]           # fetch the published corpus
+judge = ["openai>=1.0"]                    # `judge.OpenRouter`, imported lazily
+mem0 = ["mem0ai>=2.0"]                     # the fourth reference submission, imported lazily
+figures = ["matplotlib", "numpy"]           # paper/make_figures.py
+dev = ["pytest>=8"]
+all = ["huggingface_hub>=0.23", "openai>=1.0", "pytest>=8"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/persona_twin"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+# Data-backed gates are opt-in: a fresh clone running `pytest` must not download a dataset.
+# Run them with `pytest -m data`.
+addopts = "-m 'not data'"
+markers = ["data: needs the published corpus (network, or DOSSIERBENCH_DATA)"]
